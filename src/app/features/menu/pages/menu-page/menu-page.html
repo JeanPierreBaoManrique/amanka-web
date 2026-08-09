@@ -1,0 +1,571 @@
+<main class="menu-page">
+  <header class="header">
+    <button class="header__menu" type="button" aria-label="Abrir menú">
+      ☰
+    </button>
+
+    <a class="brand" href="/carta">
+      <span class="brand__symbol">⌁ ☀ ⌁</span>
+      <strong>AMANKA</strong>
+      <small>CAFÉ BAR</small>
+    </a>
+
+    <button class="language" type="button">
+      ES⌄
+    </button>
+  </header>
+
+  <nav class="categories" aria-label="Categorías">
+    @for (category of categories; track category.id) {
+      <button
+        class="category"
+        type="button"
+        [class.category--active]="selectedCategory() === category.id"
+        (click)="selectCategory(category.id)"
+      >
+        <span>{{ category.icon }}</span>
+        {{ category.name }}
+      </button>
+    }
+  </nav>
+
+  <section class="toolbar">
+    <div class="filters">
+      <button
+        class="filter"
+        type="button"
+        [class.filter--active]="activeFilter() === 'all'"
+        (click)="selectFilter('all')"
+      >
+        Todos
+      </button>
+
+      <button
+        class="filter"
+        type="button"
+        [class.filter--active]="activeFilter() === 'spicy'"
+        (click)="selectFilter('spicy')"
+      >
+        Picante
+      </button>
+
+      <button
+        class="filter filter--advanced"
+        type="button"
+        (click)="openAdvancedFilters()"
+      >
+        <span aria-hidden="true">⚙</span>
+          Filtros avanzados
+      </button>  
+      <button
+        class="filter filter--secondary-action"
+        type="button"
+        (click)="openAllergenGuide()"
+      >
+        <span aria-hidden="true">ⓘ</span>
+        Alergias
+      </button>      
+    </div>
+
+    <label class="search">
+      <span aria-hidden="true">⌕</span>
+
+      <input
+        type="search"
+        placeholder="Buscar plato..."
+        [value]="searchTerm()"
+        (input)="updateSearch($event)"
+      />
+    </label>
+  </section>
+
+  <section class="content">
+    <div class="dish-list">
+      @for (dish of filteredDishes(); track dish.id) {
+        <article
+          class="dish"
+          [class.dish--selected]="selectedDish()?.id === dish.id"
+        >
+          <button
+            class="dish__content"
+            type="button"
+            (click)="openDish(dish)"
+          >
+            <img
+              class="dish__image"
+              [src]="dish.image"
+              [alt]="dish.name"
+              loading="lazy"
+            />
+
+            <span class="dish__information">
+              <span class="dish__heading">
+                <strong>
+                  {{ dish.name }}
+                  @if (dish.spicyLevel > 0) {
+                    <span class="dish__pepper" aria-label="Picante">
+                      <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M7.5 14.5c3.2 3.2 7.8 2.6 10.7-.3 2.1-2.1 2.7-5.2 1.5-7.7-1.3.8-2.9 1-4.4.4-1.8-.7-3.2-2.1-3.9-3.9-.6 1.5-.4 3.1.4 4.4-2.5 1.2-5.6.6-7.7 1.5-2.9 2.9-3.5 7.5-.3 10.7Z"
+                        />
+                        <path
+                          d="M17.8 6.5c.8-1.6 1.1-3.2.8-4.5"
+                        />
+                      </svg>
+                    </span>
+                  }
+                </strong>
+
+                <span class="dish__price">
+                  {{ dish.price }}€
+                </span>
+              </span>
+
+              <span class="dish__description">
+                {{ dish.description }}
+              </span>
+
+              <span class="allergens">
+                @for (allergenId of dish.allergens; track allergenId) {
+                  @let allergen = getAllergen(allergenId);
+
+                  <span
+                    class="allergen"
+                    [title]="allergen.name"
+                    [attr.aria-label]="allergen.name"
+                  >
+                    {{ allergen.icon }}
+                  </span>
+                }
+              </span>
+            </span>
+          </button>
+
+          <button
+            class="eye"
+            type="button"
+            [attr.aria-label]="'Ver ' + dish.name"
+            (click)="openDish(dish)"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"
+              />
+              <circle cx="12" cy="12" r="2.5" />
+            </svg>
+          </button>
+        </article>
+      } @empty {
+        <div class="desktop-placeholder">
+          <span>⌕</span>
+          <h2>No hay platos disponibles</h2>
+          <p>
+            Prueba otra categoría, búsqueda o filtro.
+          </p>
+        </div>
+      }
+    </div>
+
+    @if (selectedDish(); as dish) {
+      <aside class="desktop-detail">
+        <div class="detail">
+          <div class="detail__media">
+            <img [src]="dish.image" [alt]="dish.name" />
+
+            <button
+              class="detail__close"
+              type="button"
+              aria-label="Cerrar"
+              (click)="closeDish()"
+            >
+              ×
+            </button>
+          </div>
+
+          <div class="detail__body">
+            <div class="detail__heading">
+              <h2>{{ dish.name }}</h2>
+              <strong>{{ dish.price }}€</strong>
+            </div>
+
+            <p>{{ dish.description }}</p>
+
+            <section class="detail__section">
+              <h3>Alérgenos</h3>
+
+              <div class="detail__allergens">
+                @for (allergenId of dish.allergens; track allergenId) {
+                  @let allergen = getAllergen(allergenId);
+
+                  <span>
+                    {{ allergen.icon }} {{ allergen.name }}
+                  </span>
+                } @empty {
+                  <span>Sin alérgenos declarados</span>
+                }
+              </div>
+            </section>
+
+          <section class="detail__section">
+            <h3>Información</h3>
+
+            <div class="detail__tags">
+              <span class="detail__spicy-tag">
+                <span class="dish__pepper" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M7.5 14.5c3.2 3.2 7.8 2.6 10.7-.3 2.1-2.1 2.7-5.2 1.5-7.7-1.3.8-2.9 1-4.4.4-1.8-.7-3.2-2.1-3.9-3.9-.6 1.5-.4 3.1.4 4.4-2.5 1.2-5.6.6-7.7 1.5-2.9 2.9-3.5 7.5-.3 10.7Z"
+                    />
+                    <path
+                      d="M17.8 6.5c.8-1.6 1.1-3.2.8-4.5"
+                    />
+                  </svg>
+                </span>
+
+                {{ spicyLabel(dish.spicyLevel) }}
+              </span>
+
+              @if (dish.glutenFree) {
+                <span>✓ Sin gluten</span>
+              }
+            </div>
+          </section>
+
+            <section class="detail__section">
+              <h3>Ingredientes principales</h3>
+
+              <p>{{ dish.ingredients }}</p>
+            </section>
+          </div>
+        </div>
+      </aside>
+    } @else {
+      <aside class="desktop-placeholder">
+        <span>◉</span>
+        <h2>Descubre cada plato</h2>
+        <p>
+          Pulsa el ojo para ver su fotografía, alérgenos e ingredientes.
+        </p>
+      </aside>
+    }
+  </section>
+@if (advancedFiltersOpen()) {
+  <div
+    class="filters-overlay"
+    (click)="closeAdvancedFilters()"
+  >
+    <aside
+      class="advanced-filters"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Filtros avanzados"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- CABECERA FIJA -->
+      <header class="advanced-filters__header">
+        <div>
+          <small>PERSONALIZA TU CARTA</small>
+          <h2>Filtros avanzados</h2>
+        </div>
+
+        <button
+          type="button"
+          aria-label="Cerrar filtros"
+          (click)="closeAdvancedFilters()"
+        >
+          ×
+        </button>
+      </header>
+
+      <!-- SOLO ESTA PARTE HACE SCROLL -->
+      <div class="advanced-filters__content">
+
+        <section class="advanced-filters__section">
+          <h3>Picante máximo</h3>
+
+          <div class="spicy-filter__heading">
+            <span>Nivel permitido</span>
+            <strong>{{ maximumSpicyLevel() }}/5</strong>
+          </div>
+
+          <input
+            class="spicy-range"
+            type="range"
+            min="0"
+            max="5"
+            step="1"
+            [value]="maximumSpicyLevel()"
+            (input)="updateMaximumSpicyLevel($event)"
+          />
+
+          <div class="spicy-scale">
+            <span>Sin picante</span>
+            <span>Muy alto</span>
+          </div>
+        </section>
+
+        <section class="advanced-filters__section">
+          <h3>Preferencias</h3>
+
+          <label class="switch-row">
+            <span>Sin gluten</span>
+
+            <input
+              type="checkbox"
+              [checked]="excludeGluten()"
+              (change)="excludeGluten.set(!excludeGluten())"
+            />
+
+            <span class="switch" aria-hidden="true"></span>
+          </label>
+
+          <label class="switch-row">
+            <span>Sin lactosa</span>
+
+            <input
+              type="checkbox"
+              [checked]="excludeLactose()"
+              (change)="excludeLactose.set(!excludeLactose())"
+            />
+
+            <span class="switch" aria-hidden="true"></span>
+          </label>
+
+          <label class="switch-row">
+            <span>Vegetariano</span>
+
+            <input
+              type="checkbox"
+              [checked]="vegetarianOnly()"
+              (change)="vegetarianOnly.set(!vegetarianOnly())"
+            />
+
+            <span class="switch" aria-hidden="true"></span>
+          </label>
+
+          <label class="switch-row">
+            <span>Vegano</span>
+
+            <input
+              type="checkbox"
+              [checked]="veganOnly()"
+              (change)="veganOnly.set(!veganOnly())"
+            />
+
+            <span class="switch" aria-hidden="true"></span>
+          </label>
+
+          <label class="switch-row">
+            <span>Sin frutos secos</span>
+
+            <input
+              type="checkbox"
+              [checked]="excludeNuts()"
+              (change)="excludeNuts.set(!excludeNuts())"
+            />
+
+            <span class="switch" aria-hidden="true"></span>
+          </label>
+        </section>
+
+        <section class="advanced-filters__section">
+          <h3>Excluir alérgenos</h3>
+
+          <p class="advanced-filters__explanation">
+            Selecciona los alérgenos que quieres evitar.
+          </p>
+
+          <div class="allergen-options">
+            @for (allergen of allergens; track allergen.id) {
+              <button
+                class="allergen-option"
+                type="button"
+                [class.allergen-option--selected]="
+                  isAllergenExcluded(allergen.id)
+                "
+                (click)="toggleExcludedAllergen(allergen.id)"
+              >
+                <span class="allergen-option__icon">
+                  {{ allergen.icon }}
+                </span>
+
+                <span>{{ allergen.name }}</span>
+
+                <span class="allergen-option__check">
+                  {{
+                    isAllergenExcluded(allergen.id)
+                      ? '✓'
+                      : ''
+                  }}
+                </span>
+              </button>
+            }
+          </div>
+        </section>
+
+      </div>
+
+      <!-- BOTONES SIEMPRE VISIBLES -->
+      <footer class="advanced-filters__footer">
+        <button
+          class="reset-filters"
+          type="button"
+          (click)="resetAdvancedFilters()"
+        >
+          Restablecer
+        </button>
+
+        <button
+          class="apply-filters"
+          type="button"
+          (click)="closeAdvancedFilters()"
+        >
+          Aplicar filtros
+        </button>
+      </footer>
+    </aside>
+  </div>
+}
+  @if (selectedDish(); as dish) {
+    <div class="mobile-overlay" (click)="closeDish()">
+      <article
+        class="detail detail--mobile"
+        (click)="$event.stopPropagation()"
+      >
+        <div class="detail__media">
+          <img [src]="dish.image" [alt]="dish.name" />
+
+          <button
+            class="detail__close"
+            type="button"
+            aria-label="Cerrar"
+            (click)="closeDish()"
+          >
+            ×
+          </button>
+        </div>
+
+        <div class="detail__body">
+          <div class="detail__heading">
+            <h2>{{ dish.name }}</h2>
+            <strong>{{ dish.price }}€</strong>
+          </div>
+
+          <p>{{ dish.description }}</p>
+
+          <section class="detail__section">
+            <h3>Alérgenos</h3>
+
+            <div class="detail__allergens">
+              @for (allergenId of dish.allergens; track allergenId) {
+                @let allergen = getAllergen(allergenId);
+
+                <span>
+                  {{ allergen.icon }} {{ allergen.name }}
+                </span>
+              } @empty {
+                <span>Sin alérgenos declarados</span>
+              }
+            </div>
+          </section>
+
+          <section class="detail__section">
+            <h3>Información</h3>
+
+            <div class="detail__tags">
+              <span class="detail__spicy-tag">
+                <span class="detail__pepper" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M7.5 14.5c3.2 3.2 7.8 2.6 10.7-.3 2.1-2.1 2.7-5.2 1.5-7.7-1.3.8-2.9 1-4.4.4-1.8-.7-3.2-2.1-3.9-3.9-.6 1.5-.4 3.1.4 4.4-2.5 1.2-5.6.6-7.7 1.5-2.9 2.9-3.5 7.5-.3 10.7Z"
+                    />
+                    <path
+                      d="M17.8 6.5c.8-1.6 1.1-3.2.8-4.5"
+                    />
+                  </svg>
+                </span>
+
+                {{ spicyLabel(dish.spicyLevel) }}
+              </span>
+
+              @if (dish.glutenFree) {
+                <span>✓ Sin gluten</span>
+              }
+            </div>
+          </section>
+
+          <section class="detail__section">
+            <h3>Ingredientes principales</h3>
+
+            <p>{{ dish.ingredients }}</p>
+          </section>
+        </div>
+      </article>
+    </div>
+  }
+@if (allergenGuideOpen()) {
+  <div
+    class="guide-overlay"
+    (click)="closeAllergenGuide()"
+  >
+    <section
+      class="allergen-guide"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Guía de alérgenos"
+      (click)="$event.stopPropagation()"
+    >
+      <header class="allergen-guide__header">
+        <div>
+          <small>INFORMACIÓN ALIMENTARIA</small>
+          <h2>Guía de alérgenos</h2>
+        </div>
+
+        <button
+          type="button"
+          aria-label="Cerrar"
+          (click)="closeAllergenGuide()"
+        >
+          ×
+        </button>
+      </header>
+
+      <p class="allergen-guide__description">
+        Estos son los alérgenos que pueden aparecer indicados en nuestra carta.
+      </p>
+
+      <div class="allergen-guide__list">
+        @for (allergen of allergens; track allergen.id) {
+          <div class="allergen-guide__item">
+            <span class="allergen-guide__icon">
+              {{ allergen.icon }}
+            </span>
+
+            <span>{{ allergen.name }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="allergen-guide__warning">
+        <strong>Importante</strong>
+
+        <p>
+          Si tienes una alergia o intolerancia alimentaria,
+          consulta con nuestro personal antes de realizar tu pedido.
+        </p>
+      </div>
+
+      <button
+        class="allergen-guide__close-button"
+        type="button"
+        (click)="closeAllergenGuide()"
+      >
+        Entendido
+      </button>
+    </section>
+  </div>
+}  
+</main>
