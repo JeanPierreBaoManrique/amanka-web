@@ -5,14 +5,13 @@
     </button>
 
     <a class="brand" href="/carta">
-      <span class="brand__symbol">⌁ ☀ ⌁</span>
-      <strong>AMANKA</strong>
-      <small>CAFÉ BAR</small>
+      <img
+        src="/branding/amanka-logo.png"
+        alt="Amanka Café Bar"
+        class="brand__logo"
+      />
     </a>
-
-    <button class="language" type="button">
-      ES⌄
-    </button>
+    <app-language-selector />
   </header>
 
   <nav class="categories" aria-label="Categorías">
@@ -37,7 +36,7 @@
         [class.filter--active]="activeFilter() === 'all'"
         (click)="selectFilter('all')"
       >
-        Todos
+        {{ t().menu.filters.all }}
       </button>
 
       <button
@@ -46,7 +45,7 @@
         [class.filter--active]="activeFilter() === 'spicy'"
         (click)="selectFilter('spicy')"
       >
-        Picante
+        {{ t().menu.filters.spicy }}
       </button>
 
       <button
@@ -55,7 +54,7 @@
         (click)="openAdvancedFilters()"
       >
         <span aria-hidden="true">⚙</span>
-          Filtros avanzados
+          {{ t().menu.filters.advanced }}
       </button>  
       <button
         class="filter filter--secondary-action"
@@ -63,19 +62,19 @@
         (click)="openAllergenGuide()"
       >
         <span aria-hidden="true">ⓘ</span>
-        Alergias
+        {{ t().menu.filters.allergies }}
       </button>      
     </div>
 
     <label class="search">
       <span aria-hidden="true">⌕</span>
 
-      <input
-        type="search"
-        placeholder="Buscar plato..."
-        [value]="searchTerm()"
-        (input)="updateSearch($event)"
-      />
+    <input
+      type="search"
+      [placeholder]="t().menu.search.placeholder"
+      [value]="searchTerm()"
+      (input)="updateSearch($event)"
+    />
     </label>
   </section>
 

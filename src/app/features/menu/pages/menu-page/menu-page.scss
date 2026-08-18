@@ -42,7 +42,7 @@ button {
   min-height: 4.75rem;
   grid-template-columns: 2.75rem 1fr 3.25rem;
   align-items: center;
-  padding: 0.65rem 0.8rem;
+  padding: 0.65rem 1.15rem;
   border-bottom: 1px solid var(--border);
   background: rgba(7, 10, 12, 0.92);
   backdrop-filter: blur(18px);
@@ -61,29 +61,22 @@ button {
 
 .brand {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  color: var(--accent);
-  line-height: 1;
+  justify-content: center;
   text-decoration: none;
+  flex-shrink: 0;
+}
 
-  &__symbol {
-    font-size: 0.58rem;
-    letter-spacing: 0.18em;
-  }
+.brand__logo {
+  display: block;
+  width: 150px;
+  height: auto;
+  object-fit: contain;
+}
 
-  strong {
-    margin-top: 0.18rem;
-    font-family: Georgia, serif;
-    font-size: 1.1rem;
-    letter-spacing: 0.1em;
-  }
-
-  small {
-    margin-top: 0.18rem;
-    color: var(--text);
-    font-size: 0.4rem;
-    letter-spacing: 0.28em;
+@media (max-width: 768px) {
+  .brand__logo {
+    width: 145px;
   }
 }
 

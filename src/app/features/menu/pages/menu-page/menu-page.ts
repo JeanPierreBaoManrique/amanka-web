@@ -2,8 +2,17 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   signal,
 } from '@angular/core';
+
+import {
+  LanguageSelector,
+} from '../../../../shared/components/language-selector/language-selector';
+
+import {
+  LanguageService,
+} from '../../../../core/i18n/language.service';
 
 type CategoryId =
   | 'entradas'
@@ -67,11 +76,21 @@ interface Dish {
 
 @Component({
   selector: 'app-menu-page',
+  imports: [LanguageSelector],
   templateUrl: './menu-page.html',
   styleUrl: './menu-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuPage {
+  private readonly languageService =
+    inject(LanguageService);
+
+  readonly language =
+    this.languageService.language;
+
+  readonly t =
+    this.languageService.translations;
+
   readonly categories: Category[] = [
     {
       id: 'entradas',

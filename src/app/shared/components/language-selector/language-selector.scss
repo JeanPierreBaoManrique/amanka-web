@@ -1,0 +1,152 @@
+:host {
+  display: block;
+  position: relative;
+}
+
+.language-selector {
+  position: relative;
+
+  &__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+
+    min-width: 4.15rem;
+    height: 2.65rem;
+
+    padding: 0 0.85rem;
+
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 999px;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.025),
+        rgba(255, 255, 255, 0)
+      );
+
+    color: #f3eee8;
+
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+      border-color 160ms ease,
+      background 160ms ease;
+
+    &:hover {
+      border-color: rgba(224, 148, 95, 0.45);
+
+      background:
+        rgba(224, 148, 95, 0.05);
+    }
+  }
+
+  &__code {
+    letter-spacing: 0.06em;
+  }
+
+  &__chevron {
+    width: 0.8rem;
+    height: 0.8rem;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    opacity: 0.65;
+
+    transition: transform 160ms ease;
+
+    &--open {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__menu {
+    position: absolute;
+
+    z-index: 200;
+
+    top: calc(100% + 0.55rem);
+    right: 0;
+
+    min-width: 10.5rem;
+
+    padding: 0.35rem;
+
+    border:
+      1px solid rgba(255, 255, 255, 0.1);
+
+    border-radius: 0.85rem;
+
+    background: #0b1012;
+
+    box-shadow:
+      0 1.2rem 3rem rgba(0, 0, 0, 0.55);
+  }
+
+  &__option {
+    display: grid;
+
+    grid-template-columns:
+      2rem
+      minmax(0, 1fr)
+      1rem;
+
+    align-items: center;
+
+    width: 100%;
+
+    padding: 0.7rem 0.75rem;
+
+    border: 0;
+    border-radius: 0.6rem;
+
+    background: transparent;
+
+    color: #aaa5a0;
+
+    font: inherit;
+    font-size: 0.75rem;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+      background 150ms ease,
+      color 150ms ease;
+
+    &:hover {
+      color: #f0b07e;
+
+      background:
+        rgba(224, 148, 95, 0.08);
+    }
+
+    &--active {
+      color: #f0b07e;
+
+      background:
+        rgba(224, 148, 95, 0.1);
+    }
+  }
+
+  &__option-code {
+    font-size: 0.65rem;
+    opacity: 0.7;
+  }
+
+  &__check {
+    color: #f0a064;
+    text-align: right;
+  }
+}
