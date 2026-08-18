@@ -342,7 +342,7 @@ readonly dishes: Dish[] = [
     ingredients:
       'Salchicha y patatas fritas.',
     price: 10,
-    image: 'images/entradas/salchipapas.jpg',
+    image: 'images/entradas/salchipapas.jpeg',
 
     // Producto comercial: revisar etiqueta de la salchicha
     // antes de considerar definitiva la información de alérgenos.
@@ -540,7 +540,7 @@ readonly dishes: Dish[] = [
     ingredients:
       'Arroz, carne de res, huevo, cebolla china, salsa de soja, salsa de ostras, canela china, aceite y sal.',
     price: 15,
-    image: 'assets/menu/chaufa-carne.jpg',
+    image: 'images/wok/chaufa-carne.jpeg',
     allergens: ['gluten', 'eggs', 'soy', 'molluscs'],
     spicyLevel: 0,
     glutenFree: false,
@@ -555,7 +555,7 @@ readonly dishes: Dish[] = [
     ingredients:
       'Arroz, pollo, carne de res, cerdo, huevo, cebolla china, salsa de soja, salsa de ostras, canela china, aceite y sal.',
     price: 18,
-    image: 'assets/menu/chaufa-especial.jpg',
+    image: 'images/wok/chaufa-especial.png',
     allergens: ['gluten', 'eggs', 'soy', 'molluscs'],
     spicyLevel: 0,
     glutenFree: false,
@@ -570,7 +570,7 @@ readonly dishes: Dish[] = [
     ingredients:
       'Arroz, gambas, calamar, mejillones, huevo, cebolla china, salsa de soja, salsa de ostras, canela china, aceite y sal.',
     price: 20,
-    image: 'assets/menu/chaufa-mariscos.jpg',
+    image: 'images/wok/chaufa-mariscos.jpeg',
     allergens: [
       'gluten',
       'eggs',
