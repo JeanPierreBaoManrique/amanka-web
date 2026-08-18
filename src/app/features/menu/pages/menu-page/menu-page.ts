@@ -222,7 +222,7 @@ readonly dishes: Dish[] = [
     ingredients:
       'Perca, limón, cebolla roja, cilantro, apio, kion, cancha chulpi, choclo, camote, sal y pimienta.',
     price: 15,
-    image: 'images/entradas/lechetigre.jpg',
+    image: 'images/entradas/lechetigre.jpeg',
     allergens: ['fish', 'celery'],
     spicyLevel: 2,
     glutenFree: true,
@@ -237,7 +237,7 @@ readonly dishes: Dish[] = [
     ingredients:
       'Perca, limón, cebolla roja, cilantro, apio, kion, ají amarillo, cancha chulpi, choclo, camote, sal y pimienta.',
     price: 15,
-    image: 'images/entradas/lechetigre-ajiamarillo.jpg',
+    image: 'images/entradas/leche-de-tigre-aji-amarillo.png',
     allergens: ['fish', 'celery'],
     spicyLevel: 2,
     glutenFree: true,
@@ -252,7 +252,7 @@ readonly dishes: Dish[] = [
     ingredients:
       'Perca, limón, cebolla roja, cilantro, apio, kion, rocoto, cancha chulpi, choclo, camote, sal y pimienta.',
     price: 15,
-    image: 'images/entradas/lechetigre-rocoto.jpg',
+    image: 'images/entradas/leche-de-tigre-rocoto.png',
     allergens: ['fish', 'celery'],
     spicyLevel: 3,
     glutenFree: true,
@@ -267,7 +267,7 @@ readonly dishes: Dish[] = [
     ingredients:
       'Papa, ají amarillo, atún, mayonesa, aguacate, huevo y sal.',
     price: 10,
-    image: 'images/entradas/causa.jpg',
+    image: 'images/entradas/causa.jpeg',
     allergens: ['fish', 'eggs'],
     spicyLevel: 0,
     glutenFree: true,
@@ -282,7 +282,7 @@ readonly dishes: Dish[] = [
     ingredients:
       'Papa, ají amarillo, sal, perca, limón, cebolla roja, cilantro, apio, kion, cancha chulpi, choclo y camote.',
     price: 15,
-    image: 'images/entradas/causa-acevichada.jpg',
+    image: 'images/entradas/causa-acevichada.jpeg',
     allergens: ['fish', 'celery'],
     spicyLevel: 2,
     glutenFree: true,
@@ -296,8 +296,8 @@ readonly dishes: Dish[] = [
       'Papa sancochada rellena de carne molida.',
     ingredients:
       'Papa sancochada, carne molida, sal y pimienta.',
-    price: 8,
-    image: 'images/entradas/paparellena.jpg',
+    price: 12,
+    image: 'images/entradas/papa-rellena.jpeg',
     allergens: [],
     spicyLevel: 0,
     glutenFree: true,
@@ -311,8 +311,8 @@ readonly dishes: Dish[] = [
       'Papa sancochada acompañada de salsa huancaína.',
     ingredients:
       'Papa sancochada, ají amarillo, galleta de cocina, leche, huevo y sal.',
-    price: 10,
-    image: 'images/entradas/papahuancayna.jpg',
+    price: 12,
+    image: 'images/entradas/papa-huacayna.jpeg',
     allergens: ['gluten', 'milk', 'eggs'],
     spicyLevel: 1,
     glutenFree: false,
@@ -321,28 +321,13 @@ readonly dishes: Dish[] = [
   {
     id: 'anticucho-papa-ensalada',
     categoryId: 'entradas',
-    name: 'Anticucho con Papa y Ensalada',
+    name: 'Anticucho Especial',
     description:
       'Corazón de res marinado con ají panca y preparado a la parrilla.',
     ingredients:
       'Corazón de res, ají panca, sal, papa y ensalada.',
-    price: 10,
-    image: 'images/entradas/la-panka-anticuchos.jpg',
-    allergens: [],
-    spicyLevel: 1,
-    glutenFree: true,
-  },
-
-  {
-    id: 'anticucho-rachi',
-    categoryId: 'entradas',
-    name: 'Anticucho + Rachi con Papa',
-    description:
-      'Anticucho acompañado de rachi y papa.',
-    ingredients:
-      'Corazón de res, rachi, ají panca, sal y papa.',
-    price: 13,
-    image: 'images/entradas/anticucho-rachi.jpg',
+    price: 15.99,
+    image: 'images/entradas/anticucho-especial.png',
     allergens: [],
     spicyLevel: 1,
     glutenFree: true,
@@ -365,37 +350,6 @@ readonly dishes: Dish[] = [
     spicyLevel: 0,
     glutenFree: false,
   },
-
-  {
-    id: 'calamares-romana',
-    categoryId: 'entradas',
-    name: 'Calamares a la Romana',
-    description:
-      'Calamares fritos crujientes.',
-    ingredients:
-      'Calamar, huevo, harina de trigo, harina de maíz, sal y pimienta.',
-    price: 10,
-    image: 'images/entradas/calamares-romana.jpg',
-    allergens: ['gluten', 'eggs', 'molluscs'],
-    spicyLevel: 0,
-    glutenFree: false,
-  },
-
-  {
-    id: 'choritos-chalaca',
-    categoryId: 'entradas',
-    name: 'Choritos a la Chalaca',
-    description:
-      'Mejillones preparados al estilo chalaca.',
-    ingredients:
-      'Mejillones, cebolla roja, tomate, maíz, cilantro, limón y ají.',
-    price: 10,
-    image: 'images/entradas/Choritos_a_la_chalaca.jpg',
-    allergens: ['molluscs'],
-    spicyLevel: 1,
-    glutenFree: true,
-  },
-
 
   // =========================================================
   // TRADICIONES
@@ -521,7 +475,7 @@ readonly dishes: Dish[] = [
     ingredients:
       'Cerdo y camote.',
     price: 16,
-    image: 'assets/menu/chicharron-cerdo.jpg',
+    image: 'images/tradiciones/chicharron-cerdo.jpeg',    
     allergens: [],
     spicyLevel: 0,
     glutenFree: true,
@@ -570,8 +524,8 @@ readonly dishes: Dish[] = [
       'Arroz chaufa preparado al wok con pollo.',
     ingredients:
       'Arroz, pollo, huevo, cebolla china, salsa de soja, salsa de ostras, canela china, aceite y sal.',
-    price: 14,
-    image: 'assets/menu/chaufa-pollo.jpg',
+    price: 15,
+    image: 'images/wok/chaufa-pollo.jpeg',
     allergens: ['gluten', 'eggs', 'soy', 'molluscs'],
     spicyLevel: 0,
     glutenFree: false,
@@ -775,7 +729,7 @@ readonly dishes: Dish[] = [
     ingredients:
       'Perca, limón, cilantro, apio, kion, cebolla roja, sal, pimienta, cancha chulpi, choclo y camote.',
     price: 15,
-    image: 'assets/menu/ceviche-perca.jpg',
+    image: 'images/ceviche/ceviche-peruano-perca.jpeg',
     allergens: ['fish', 'celery'],
     spicyLevel: 2,
     glutenFree: true,
